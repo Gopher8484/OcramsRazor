@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squeezed Text</title>
+    <style>
+        .container {
+            display: inline-flex;
+            white-space: nowrap;
+        }
+        .normal-text {
+            display: inline;
+            white-space: pre;
+        }
+        .squeezed-text {
+            display: inline-block;
+            transform: scaleX(0); /* Collapse the text to have zero width */
+            width: 0; /* Ensure the width is zero */
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="normal-text" id="normal1"></span>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const norm1 = params.get("norm1") || "";
+        const norm2 = params.get("norm2") || "";
+        const shr = params.get("shr") || "";
+
+        document.getElementById("normal1").textContent = norm1+norm2;
+
+        document.addEventListener("copy", (event) => {
+            console.log(shr)
+            event.clipboardData.setData("text/plain", norm1+shr+norm2);
+            event.preventDefault();
+        })
+    </script>
+</body>
+</html>
